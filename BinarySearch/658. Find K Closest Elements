@@ -1,0 +1,32 @@
+class Solution {
+    public List<Integer> findClosestElements(int[] arr, int k, int x) {
+        if (k > arr.length) {
+            return null;
+        }
+
+        int start = 0;
+        int end = arr.length - k;
+        
+        while (start + 1 < end) {
+            int mid = start + (end - start) / 2;
+            if (x - arr[mid] <= arr[mid + k] - x) {
+                end = mid;
+            } else {
+                start = mid;
+            }
+        }
+        
+        int head = -1;
+        if (arr.length == k || x - arr[start] <= arr[start + k] - x) {
+            head = start;
+        } else {
+            head = end;
+        }
+        
+        List<Integer> results = new ArrayList<>();
+        for (int i = head; i < head + k; i++) {
+            results.add(arr[i]);
+        }
+        return results;
+    }
+}
