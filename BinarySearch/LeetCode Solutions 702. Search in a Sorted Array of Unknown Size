@@ -1,0 +1,32 @@
+class Solution {
+public:
+    /**
+     * @reader: reader.get(k) returns the element of the array at index k (0-indexed).
+     * @return: return target index
+     */
+    int search(ArrayReader reader, int target) {
+        // write your code here
+
+        int start = 0;
+        int end = (int) 1e4;
+
+        while (start + 1 < end) {
+            int mid = start + (end - start) / 2;
+            if (target < reader.get(mid)) {
+                end = mid;
+            } else {
+                start = mid;
+            }
+        }
+
+        if (reader.get(start) == target) {
+            return start;
+        }
+
+        if (reader.get(end) == target) {
+            return end;
+        }
+
+        return -1;
+    }
+};
