@@ -20,3 +20,41 @@ class Solution {
         
     }
 }
+
+
+// Sort and Two Pointer
+
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        // corner case
+        if (nums == null || nums.length < 2) {
+            return null;
+        }
+        
+        Map<Integer, Integer> map = new HashMap<>();
+        
+        for (int i = 0; i < nums.length; i++) {
+            if (map.containsKey(nums[i]) && nums[i] * 2 == target) {
+                return new int[] {i, map.get(nums[i])};
+            }
+            map.put(nums[i], i);
+        }
+        
+        Arrays.sort(nums);
+        
+        int left = 0;
+        int right = nums.length - 1;
+        
+        while (left < right) {
+            if (nums[left] + nums[right] == target) {
+                return new int[] {map.get(nums[left]), map.get(nums[right])};
+            } else if (nums[left] + nums[right] < target) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        
+        return null;
+    }
+}
