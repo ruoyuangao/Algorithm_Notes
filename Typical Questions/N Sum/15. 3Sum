@@ -1,0 +1,46 @@
+// Hash Table
+
+
+
+// Sort and Two Pointer
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        // corner case
+        if (nums == null || nums.length < 3) {
+            return null;
+        }
+        
+        // Preparation
+        List<List<Integer>> results = new ArrayList<>();
+        
+        Arrays.sort(nums);
+        
+        for (int i = 0; i < nums.length; i++) {
+            // do not use duplicate value 
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            
+            //convert it into a two sum problem
+            int left = i + 1;
+            int right = nums.length - 1;
+            int target = -nums[i];
+            
+            while (left < right) {
+                if (nums[left] + nums[right] == target) {
+                    results.add(Arrays.asList(-target, nums[left], nums[right]));
+                    while (left < right && nums[++left] == nums[left - 1]);
+                    while (left < right && nums[--right] == nums[right + 1]);
+                } else if (nums[left] + nums[right] < target) {
+                    left++;
+                } else {
+                    right--;
+                }
+            }
+        
+        }
+        
+        return results;
+        
+    }
+}
